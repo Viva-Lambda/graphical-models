@@ -25,6 +25,7 @@ from pygmodels.graphops.bgraphops import (
 )
 from pygmodels.graphops.digraphops import DiGraphBoolOps
 from pygmodels.graphops.graphsearcher import BaseGraphSearcher
+from pygmodels.ganalysis.graphanalyzer import BaseGraphAnalyzer
 from pygmodels.gtype.abstractobj import AbstractDiGraph, EdgeType
 from pygmodels.gtype.basegraph import BaseGraph
 from pygmodels.gtype.edge import Edge
@@ -121,11 +122,11 @@ class DiGraph(AbstractDiGraph, BaseGraph):
         pset = path_props.path_set
         return n2 in pset
 
-    def find_transitive_closure(self) -> Graph:
+    def __find_transitive_closure(self) -> Graph:
         """!
         From algorithmic graph theory Joyner, Phillips, Nguyen, 2013, p.134
         """
-        T = self.transitive_closure_matrix()
+        T = BaseGraphAnalyzer.transitive_closure_matrix(self)
         nodes = set()
         edges = set()
         for tpl, tval in T.items():
@@ -143,3 +144,9 @@ class DiGraph(AbstractDiGraph, BaseGraph):
                 edges.add(e)
 
         return DiGraph(gid=str(uuid4()), nodes=nodes, edges=edges)
+
+    def find_transitive_closure(self) -> Graph:
+        """!
+        From algorithmic graph theory Joyner, Phillips, Nguyen, 2013, p.134
+        """
+        raise NotImplementedError("algorithm not yet implemented")
