@@ -4,11 +4,9 @@
 import math
 import unittest
 
-from pygmodels.pgmtype.randomvariable import (
-    CatRandomVariable,
-    NumCatRVariable,
-    PossibleOutcomes,
-)
+from pygmodels.randvar.catrandomval import CatRandomVariable
+from pygmodels.randvar.numcatrandomval import NumCatRVariable
+from pygmodels.value.valtype import PossibleOutcomes
 
 
 class NumCatRVariableTest(unittest.TestCase):
@@ -17,10 +15,7 @@ class NumCatRVariableTest(unittest.TestCase):
         input_data = {
             "intelligence": {"outcome-values": [0.1, 0.9], "evidence": 0.9},
             "grade": {"outcome-values": [0.2, 0.4, 0.6], "evidence": 0.2},
-            "dice": {
-                "outcome-values": [i for i in range(1, 7)],
-                "evidence": 1.0 / 6,
-            },
+            "dice": {"outcome-values": [i for i in range(1, 7)], "evidence": 1.0 / 6,},
         }
 
         def intelligence_dist(intelligence_value: float):
@@ -95,8 +90,7 @@ class NumCatRVariableTest(unittest.TestCase):
     def test_value_set(self):
         self.assertEqual(
             self.rvar.value_set(
-                value_transform=lambda x: x.lower(),
-                value_filter=lambda x: x != "A",
+                value_transform=lambda x: x.lower(), value_filter=lambda x: x != "A",
             ),
             frozenset([("myrandomvar", "f")]),
         )
@@ -159,8 +153,7 @@ class NumCatRVariableTest(unittest.TestCase):
     def test_standard_deviation(self):
         """"""
         self.assertEqual(
-            round(self.dice.standard_deviation(), 3),
-            round(math.sqrt(2.917), 3),
+            round(self.dice.standard_deviation(), 3), round(math.sqrt(2.917), 3),
         )
 
 

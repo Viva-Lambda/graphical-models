@@ -15,18 +15,6 @@ from pygmodels.gtype.abstractobj import (
 from pygmodels.pgmtype.codomaintype import NumericValue, Outcome
 
 
-class AbstractRandomVariable(AbstractNode):
-    """!
-    Abstract random variable
-    """
-
-    @abstractmethod
-    def p(self, out: Outcome) -> NumericValue:
-        """!
-        Measure the probability of the given outcome
-        """
-        raise NotImplementedError
-
 
 class AbstractFactor(AbstractGraphObj):
     """"""
@@ -53,11 +41,6 @@ class AbstractFactor(AbstractGraphObj):
 
     @abstractmethod
     def phi(self, scope_product: Set[Tuple[str, float]]):
-        """"""
-        raise NotImplementedError
-
-    @abstractmethod
-    def phi_normal(self, scope_product: Set[Tuple[str, float]]):
         """"""
         raise NotImplementedError
 
